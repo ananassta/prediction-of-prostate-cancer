@@ -3,6 +3,11 @@ import sqlite3
 import numpy as np
 import matplotlib.pyplot as plt
 from math import sqrt
+import sklearn
+import sklearn.linear_model
+import sklearn.ensemble
+import sklearn.neighbors
+import sklearn.svm
 
 con = sqlite3.connect("prostate_cancer.db")
 
@@ -156,5 +161,45 @@ axs2[3][2].set_title('prostate_volume/bmi')
 
 # Text view
 print(df.corr(method='pearson'))
+# psa and density_psa are highly correlated, therefore, while working with regression analysis, we remove second feature
 
+# Regression analysis
+# separate predicted values from sample
+trg = np.array(df[['G']])
+trn = np.array(df[['age','bmi','prostate_volume','psa']])
+
+# set regression analysis methods
+models = [sklearn.linear_model.LinearRegression(), # least square method
+	          sklearn.ensemble.RandomForestRegressor(n_estimators=100, max_features ='sqrt'), # random forest
+	          sklearn.neighbors.KNeighborsRegressor(n_neighbors=6), # nearest neighbors method
+	          sklearn.svm.SVR(kernel='linear'), # support vector machine with linear kernel
+	          sklearn.linear_model.LogisticRegression(), # logistic regression
+              sklearn.linear_model.Lasso(), #lasso regression
+              sklearn.linear_model.Ridge() #ridge regression
+	          ]
+
+# split into training and test samples
+Xtrn, Xtest, Ytrn, Ytest = sklearn.model_selection.train_test_split(trn, trg, test_size=0.4)
+
+# create temporary structures
+TestModels = pd.DataFrame()
+tmp = {}
+# for each model from the list
+for model in models:
+    # get model name
+    m = str(model)
+    tmp['Model'] = m[:m.index('(')]
+    # train model
+    model.fit(Xtrn, np.ravel(Ytrn))
+    # calculate coefficient of determination
+    tmp['Result'] = sklearn.metrics.r2_score(np.ravel(Ytest), model.predict(Xtest))
+    # write data and resulting DataFrame
+    TestModels = TestModels.append([tmp])
+# make index by model name
+TestModels.set_index('Model', inplace=True)
+# r2 - coefficient of determination
+fig3, axes3 = plt.subplots(ncols=2, figsize=(10,4))
+TestModels.Result.plot(ax=axes3[0], kind='bar', title='R2')
+
+# Show results
 plt.show()
