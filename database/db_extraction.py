@@ -93,12 +93,15 @@ for i in range(len(N)):
     if id[i] == '51AF93A3-C251-43C0-A231-F8C52515124B':
         weight[i] = 71
         height[i] = 176
+        psa[i] = 155.89
     if id[i] == 'CBEB6BB5-1ACD-4D38-ADE6-FE600D25BD4A':
         weight[i] = 64
         height[i] = 176
     if id[i] == 'F42CC368-32B9-4A95-AFF9-E22ADD767E1A':
         weight[i] = 97.2
         height[i] = 177
+    if psa[i] > 1000:
+        psa[i] = 1000
     density_psa.append(round(psa[i]/prostate_volume[i],5))
     bmi.append(round(weight[i]/((height[i]/100)*(height[i]/100)),5))
     psa[i]=round(psa[i],5)
