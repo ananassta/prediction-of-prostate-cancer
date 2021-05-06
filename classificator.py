@@ -23,6 +23,7 @@ df.drop('T', axis=1, inplace=True)
 df.drop('N', axis=1, inplace=True)
 df.drop('M', axis=1, inplace=True)
 x = df[['age', 'bmi', 'prostate_volume', 'psa']]
+x = preprocessing.normalize(x) # normalization
 y = df['G']
 
 # Create training and test samples
@@ -52,10 +53,12 @@ for model in models:
 # following three classifiers performed best
 # choose final classification based on their results using mean and voting
 golosovanie = [KNeighborsClassifier(),
-	          DecisionTreeClassifier(),
-              RandomForestClassifier()]
+	       DecisionTreeClassifier(),
+               LinearDiscriminantAnalysis(),
+               GaussianNB(),
+               RandomForestClassifier()]
 golosovanie_prediction = np.zeros(y_test.size)
-votes = np.zeros([y_test.size,3])
+votes = np.zeros([y_test.size,5])
 k = 0
 for model in golosovanie:
     m = str(model)
@@ -90,8 +93,8 @@ for model in golosovanie:
 final_votes = np.zeros(y_test.size)
 final_votes_counter = np.zeros(10)
 for i in range(y_test.size):
-    golosovanie_prediction[i] = round(golosovanie_prediction[i]/3) # first step was made in previous cycle
-    for j in range(3):
+    golosovanie_prediction[i] = round(golosovanie_prediction[i]/5) # first step was made in previous cycle
+    for j in range(5):
         final_votes_counter[int(votes[i][j])-1] = final_votes_counter[int(votes[i][j])-1] + 1
     max_i = 0
     index = 0
