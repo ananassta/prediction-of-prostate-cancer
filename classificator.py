@@ -14,14 +14,6 @@ from sklearn.ensemble import RandomForestClassifier
 # Get required data
 con = sl.connect("prostate_cancer.db")
 df = pd.read_sql("SELECT * FROM PATIENT", con)
-df.drop('index', axis=1, inplace=True)
-df.drop('id', axis=1, inplace=True)
-df.drop('weight', axis=1, inplace=True)
-df.drop('height', axis=1, inplace=True)
-df.drop('density_psa', axis=1, inplace=True)
-df.drop('T', axis=1, inplace=True)
-df.drop('N', axis=1, inplace=True)
-df.drop('M', axis=1, inplace=True)
 x = df[['age', 'bmi', 'prostate_volume', 'psa']]
 x = preprocessing.normalize(x) # normalization
 y = df['G']
