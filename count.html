@@ -27,7 +27,21 @@
     //});
     function startCount() {
         let elem = document.getElementById("MyButton");
-        document.getElementById("form").submit();
+        // document.getElementById("form").submit(function(e) {
+        //         //return false;
+
+        //         //$.ajax({
+        //         // type: 'post',
+        //         //url: 'count.html',
+        //         //data: $('#form').serialize(),
+        //         //success: function() {
+        //         //alert("Email has been sent!");
+        //         //}
+        //         // });
+        //         console.log(e);
+        //         e.preventDefault();
+        //     }) //onsubmit="return false" в from в html
+
 
         console.log('click');
         let age = document.getElementById("age").value;
@@ -57,10 +71,12 @@
                 k = j;
             };
         };
-        alert(k);
+        //alert(k);
         //})()
+        document.getElementById("glison").innerHTML = k;
 
     } //<button class="form_button" id="MyButton" onclick="startCount()">Вычислить</button>
+
     //function myFoo1() {
     // console.log('Это третий способ реализации Onclick в JavaScript через addEventListener и вывод через alert');
     //}
@@ -122,22 +138,29 @@
             <a href="count.html" class="current">Вычисления</a>
         </li>
     </ul>
-    <form class="form" id="form" onsubmit="return false">
-        <h2>Внесите данные
-        </h2>
-        <div class=" form_grup "><label class="form_label "> Возраст </label>
-            <input name="age" id="age" type="number " class="form_input" required/> </div>
-        <div class="form_grup "><label class="form_label"> Индекс массы тела </label>
-            <input name="bmi " id="bmi" type="number " class="form_input" required /></div>
-        <div class="form_grup "><label class="form_label"> Объем простаты </label>
-            <input name="volume " id="volume" type="number " class="form_input" required /> </div>
-        <div class="form_grup "><label class="form_label"> Значение ПСА </label>
-            <input name="psa " id="psa" type="number " class="form_input" required />
-        </div>
-        <button type="submit " value="Send " class="form_button" id="MyButton" onclick="startCount() ">Вычислить</button>
-    </form>
+    <div class="right">
+        <form action="" class="form" id="form" method="POST">
+            <h2>Внесите данные
+            </h2>
+            <div class=" form_grup "><label class="form_label "> Возраст </label>
+                <input name="age" id="age" type="number " class="form_input" required/> </div>
+            <div class="form_grup "><label class="form_label"> Индекс массы тела </label>
+                <input name="bmi " id="bmi" type="number " class="form_input" required /></div>
+            <div class="form_grup "><label class="form_label"> Объем простаты </label>
+                <input name="volume " id="volume" type="number " class="form_input" required /> </div>
+            <div class="form_grup "><label class="form_label"> Значение ПСА </label>
+                <input name="psa " id="psa" type="number " class="form_input" required />
+            </div>
+            <button type="button" value="Send " class="form_button" id="MyButton" onsubmit="return false" onclick="startCount()">Вычислить</button>
+        </form>
 
-    <footer class="py-3 "></footer>
+        <div class="map">
+            <h2 class="res">Результаты</h2>
+            <h3>Показатель Глисона: </h3>
+            <h4 id="glison"></h4>
+        </div>
+    </div>
+    <footer class=" py-3 "></footer>
     <div class="copy-bottom-txt text-center py-3 ">
         <p>
             © 2021 Bartashuk Anastasiia. All Rights Reserved | Design by Bartashuk Anastasiia
@@ -145,9 +168,9 @@
     </div>
     <div class="social-icons mt-lg-3 mt-2 text-center ">
         <ul>
-            <li><a href="# "><span class="fa fa-facebook "></span></a></li>
-            <li><a href="# "><span class="fa fa-vk "></span></a></li>
-            <li><a href="# "><span class="fa fa-rss "></span></a></li>
+            <li><a href="https://ru-ru.facebook.com/anastasia.bartashuk "><span class="fa fa-facebook "></span></a></li>
+            <li><a href="https://vk.com/ananassta "><span class="fa fa-vk "></span></a></li>
+            <li><a href="mailto: st064149@student.spbu.ru "><span class="fa fa-rss "></span></a></li>
         </ul>
     </div>
     </footer>
