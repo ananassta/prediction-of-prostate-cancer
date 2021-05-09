@@ -4,33 +4,15 @@
     <title>Prostate cancer predictor</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
-<script lang="js">
-    (async() => {
-        const model = await tf.loadLayersModel('http://localhost:8080/ten_flow/model.json');
-        let arr = model.predict(tf.tensor([8.79243737e-01, 3.37325173e-01, 3.31309234e-01, 5.81065426e-02], [1, 4]));
-        let res = arr.arraySync();
-        let k = 0;
-        let s = res[0][0];
-        for (let j = 0; j < res[0].length; j += 1) {
-            if (s < res[0][j]) {
-                s = res[0][j];
-                k = j;
-            };
-        };
-        alert(k);
-    })()
-    //http-server -c1 --cors . //Hit CTRL-C to stop the server
-</script>
 <script src="https://use.fontawesome.com/df966d76e1.js"></script>
 
 <body bgcolor="#CCCCFF" text="#666699">
     <ul class="menu-main">
         <li>
-            <a href="" class="current">О проекте</a>
+            <a href="site.html" class="current">О проекте</a>
         </li>
         <li>
-            <a href="">Вычисления</a>
+            <a href="count.html">Вычисления</a>
         </li>
     </ul>
     <h1>Проект "Прогнозирование рака предстательной железы с помощью искуственной нейронной сети"</h1>

@@ -1,0 +1,157 @@
+<html>
+
+<head>
+    <title>Prostate cancer predictor</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script lang="js">
+    let model;
+    (async() => {
+        model = await tf.loadLayersModel('http://localhost:8080/ten_flow/model.json');
+    })();
+    //(async() => {
+    // let form = document.getElementById("form");
+    //form.onsubmit = async(e) => {
+    //e.preventDefault();
+    //alert('got it');
+    //};
+    //})()
+    // document.querySelector('#form').addEventListener('submit', e => {
+    //  e.preventDefault();
+
+    //    const data = new FormData(e.target);
+
+    //  alert(data.get('age'));
+    //});
+    function startCount() {
+        let elem = document.getElementById("MyButton");
+        document.getElementById("form").submit();
+
+        console.log('click');
+        let age = document.getElementById("age").value;
+        let bmi = document.getElementById("bmi").value;
+        let volume = document.getElementById("volume").value;
+        let psa = document.getElementById("psa").value;
+        //alert(age);
+        age = 8.79243737e-01;
+        bmi = 3.37325173e-01;
+        volume = 3.31309234e-01;
+        psa = 5.81065426e-02;
+        //(async() => {
+
+
+        let arr = model.predict(tf.tensor2d([age, bmi, volume, psa], [1, 4]));
+        //if (arr) {
+        //    alert('yes');
+        //}
+        //alert(arr);
+        let res = arr.arraySync();
+        //alert(res);
+        let k = 0;
+        let s = res[0][0];
+        for (let j = 0; j < res[0].length; j += 1) {
+            if (s < res[0][j]) {
+                s = res[0][j];
+                k = j;
+            };
+        };
+        alert(k);
+        //})()
+
+    } //<button class="form_button" id="MyButton" onclick="startCount()">Вычислить</button>
+    //function myFoo1() {
+    // console.log('Это третий способ реализации Onclick в JavaScript через addEventListener и вывод через alert');
+    //}
+    //let button = document.getElementById('MyButton');
+    //if (button) {
+    //button.addEventListener('click ', myFoo1);
+    //}
+    //document.body.onclick = function(e) {
+    //e = e || event;
+    //target = e.target || e.srcElement;
+    //if ((target.id == "MyButton")) {
+    //   alert(1);
+    //}
+    //}
+    // $(document).keypress(function(e) {
+    //    if (e.which == 13) EnterButton();
+    //});
+
+    //$('button').on('click', function() {
+    //  EnterButton();
+    //console.log('e');
+    //});
+
+    //function EnterButton() {
+    //console.log('enter');
+    // (async() => {
+    //   const model = await tf.loadLayersModel('http://localhost:8080/ten_flow/model.json');
+    // let arr = model.predict(tf.tensor([8.79243737e-01, 3.37325173e-01, 3.31309234e-01, 5.81065426e-02], [1, 4]));
+    //let res = arr.arraySync();
+    //let k = 0;
+    //let s = res[0][0];
+    //for (let j = 0; j < res[0].length; j += 1) {
+    //  if (s < res[0][j]) {
+    //    s = res[0][j];
+    //  k = j;
+    //};
+    //};
+    //alert(k);
+    //})();
+    //}
+    //$(document).ready(function() {
+    //  $('#MyButton').click(function() {
+
+    //});
+    //});
+    //(async() => {
+
+    //})()
+    //http-server -c1 --cors . //Hit CTRL-C to stop the server
+</script>
+<script src="https://use.fontawesome.com/df966d76e1.js"></script>
+
+<body bgcolor="#CCCCFF" text="#666699">
+    <ul class="menu-main">
+        <li>
+            <a href="site.html">О проекте</a>
+        </li>
+        <li>
+            <a href="count.html" class="current">Вычисления</a>
+        </li>
+    </ul>
+    <form class="form" id="form" onsubmit="return false">
+        <h2>Внесите данные
+        </h2>
+        <div class=" form_grup "><label class="form_label "> Возраст </label>
+            <input name="age" id="age" type="number " class="form_input" required/> </div>
+        <div class="form_grup "><label class="form_label"> Индекс массы тела </label>
+            <input name="bmi " id="bmi" type="number " class="form_input" required /></div>
+        <div class="form_grup "><label class="form_label"> Объем простаты </label>
+            <input name="volume " id="volume" type="number " class="form_input" required /> </div>
+        <div class="form_grup "><label class="form_label"> Значение ПСА </label>
+            <input name="psa " id="psa" type="number " class="form_input" required />
+        </div>
+        <button type="submit " value="Send " class="form_button" id="MyButton" onclick="startCount() ">Вычислить</button>
+    </form>
+
+    <footer class="py-3 "></footer>
+    <div class="copy-bottom-txt text-center py-3 ">
+        <p>
+            © 2021 Bartashuk Anastasiia. All Rights Reserved | Design by Bartashuk Anastasiia
+        </p>
+    </div>
+    <div class="social-icons mt-lg-3 mt-2 text-center ">
+        <ul>
+            <li><a href="# "><span class="fa fa-facebook "></span></a></li>
+            <li><a href="# "><span class="fa fa-vk "></span></a></li>
+            <li><a href="# "><span class="fa fa-rss "></span></a></li>
+        </ul>
+    </div>
+    </footer>
+
+</body>
+
+</html>
