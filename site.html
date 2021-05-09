@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <title>Prostate cancer predictor</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script lang="js">
+    (async() => {
+        const model = await tf.loadLayersModel('http://localhost:8080/ten_flow/model.json');
+        let arr = model.predict(tf.tensor([8.79243737e-01, 3.37325173e-01, 3.31309234e-01, 5.81065426e-02], [1, 4]));
+        let res = arr.arraySync();
+        let k = 0;
+        let s = res[0][0];
+        for (let j = 0; j < res[0].length; j += 1) {
+            if (s < res[0][j]) {
+                s = res[0][j];
+                k = j;
+            };
+        };
+        alert(k);
+    })()
+    //http-server -c1 --cors . //Hit CTRL-C to stop the server
+</script>
+<script src="https://use.fontawesome.com/df966d76e1.js"></script>
+
+<body bgcolor="#CCCCFF" text="#666699">
+    <ul class="menu-main">
+        <li>
+            <a href="" class="current">О проекте</a>
+        </li>
+        <li>
+            <a href="">Вычисления</a>
+        </li>
+    </ul>
+    <h1>Проект "Прогнозирование рака предстательной железы с помощью искуственной нейронной сети"</h1>
+    <div class="ex4">
+        <h2>Цели</h2>
+        Рак предстательной железы представляет немалую опасность для мужчин по всему миру, поэтому невероятно важны диагностика и определение степени опасности рака на ранних стадиях. Основными биохимическими способами являются простатический специфический антиген
+        и трансректальная биопсия простаты, однако первый часто приносит ложноположительные результаты, а второй может привести к нежелательным и опасным осложнениям. В силу вышеописанных причин, было принято решение о создании искусственной нейронной
+        сети для прогнозирования показателя Глисона и степени опасности рака предстательной железы. br
+    </div>
+    <div class="ex4">
+        <h2>Инструкция</h2>
+        В первую очередь, необходимо перейти на вкладку "Вычисления" и внести 4 показателя "Возраст", "ИМТ", "Объем простаты" и "Значение ПСА".
+        <br> "ИМТ" (индекс массы тела) можно рассчитать по формуле вес в кг, деленный на рост в метрах в квадрате. Значение "Объема простаты" можно узнать при плановом походе к врачу, а уровень простатического специфического антигена можно получить, сдав
+        анализ крови.
+        <br> Далее, после внесения всех показателей, необходимо нажать на кнопку "Вычислить". После этого справа вы сможете увидеть результаты вычислений.
+    </div>
+    <div class="ex4">
+        <h2>Исследованные данные</h2>
+        Данная нейросеть была обучена на показателях пациентов с подтвержденным раком предстательной железы в Санкт-Петербурге в период с 1990-х годов по 2012 год.
+    </div>
+    <footer class="py-3"></footer>
+    <div class="copy-bottom-txt text-center py-3">
+        <p>
+            © 2021 Bartashuk Anastasiia. All Rights Reserved | Design by Bartashuk Anastasiia
+        </p>
+    </div>
+    <div class="social-icons mt-lg-3 mt-2 text-center">
+        <ul>
+            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+            <li><a href="#"><span class="fa fa-vk"></span></a></li>
+            <li><a href="#"><span class="fa fa-rss"></span></a></li>
+        </ul>
+    </div>
+    </footer>
+
+</body>
+
+</html>
