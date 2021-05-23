@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Prostate cancer predictor</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  <script type="text/javascript">
+function xmlhttpPost(strURL) {
+    let xmlHttpReq = false;
+    let self = this;
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        self.xmlHttpReq = new XMLHttpRequest();
+    }
+    // IE
+    else if (window.ActiveXObject) {
+        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    self.xmlHttpReq.open('POST', strURL, true);
+    self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    self.xmlHttpReq.onreadystatechange = function() {
+        if (self.xmlHttpReq.readyState == 4) {
+            updatepage(self.xmlHttpReq.responseText);
+        }
+    }
+    self.xmlHttpReq.send(getquerystring());
+}
+
+function getquerystring() {
+    let form = document.forms['form'];
+    let age = form.elements.age;
+    let age_v = age.value;
+    let bmi = form.elements.bmi;
+    let bmi_v = bmi.value;
+    let volume = form.elements.volume;
+    let volume_v = volume.value;
+    let psa = form.elements.psa;
+    let psa_v = psa.value;
+    return "age=" + age_v + "&bmi=" + bmi_v + "&volume=" + volume_v + "&psa=" + psa_v;
+}
+
+<!--  JavaScript:xmlhttpPost('/cgi-bin/count.py') -->
+<!--  '/cgi-bin/count.py' -->
+
+function updatepage(str){
+    document.getElementById("glison").innerHTML = str;
+}
+</script>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/df966d76e1.js"></script>
+
+
+
+<body bgcolor="#CCCCFF" text="#666699">
+    <ul class="menu-main">
+        <li>
+            <a href="site.html">О проекте</a>
+        </li>
+        <li>
+            <a href="count.html" class="current">Вычисления</a>
+        </li>
+    </ul>
+    <div class="right">
+        <form action="JavaScript:xmlhttpPost('/cgi-bin/count.py')" class="form" id="form">
+            <h2>Внесите данные
+            </h2>
+            <div class="form_grup "><label class="form_label "> Возраст </label>
+                <input name="age" id="age"  type="number " class="form_input" required/> </div>
+            <div class="form_grup "><label class="form_label"> Индекс массы тела </label>
+                <input name="bmi" id="bmi" type="number" class="form_input" required /></div>
+            <div class="form_grup "><label class="form_label"> Объем простаты </label>
+                <input name="volume" id="volume"  type="number " class="form_input" required /> </div>
+            <div class="form_grup "><label class="form_label"> Значение ПСА </label>
+                <input name="psa" id="psa"  type="number " class="form_input" required />
+            </div>
+            <input type="submit" value="Submit" class="form_button" id="My_Button" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count.py')"/>
+            <button type="button" value="Submit" class="form_button" id="MyButton" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count.py')">Вычислить</button>
+        </form>
+
+        <div class="map">
+            <h2 class="res">Результаты</h2>
+            <h3>Показатель Глисона: </h3>
+            <h4 id="glison"></h4>
+        </div>
+    </div>
+    <footer class=" py-3 "></footer>
+    <div class="copy-bottom-txt text-center py-3 ">
+        <p>
+            © 2021 Bartashuk Anastasiia. All Rights Reserved | Design by Bartashuk Anastasiia
+        </p>
+    </div>
+    <div class="social-icons mt-lg-3 mt-2 text-center ">
+        <ul>
+            <li><a href="https://ru-ru.facebook.com/anastasia.bartashuk "><span class="fa fa-facebook "></span></a></li>
+            <li><a href="https://vk.com/ananassta "><span class="fa fa-vk "></span></a></li>
+            <li><a href="mailto: st064149@student.spbu.ru "><span class="fa fa-rss "></span></a></li>
+        </ul>
+    </div>
+    </footer>
+
+</body>
+
+</html>
