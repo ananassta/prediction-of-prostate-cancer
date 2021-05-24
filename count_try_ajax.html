@@ -41,9 +41,13 @@ function getquerystring() {
 
 <!--  JavaScript:xmlhttpPost('/cgi-bin/count.py') -->
 <!--  '/cgi-bin/count.py' -->
+<!--<input type="submit" value="Submit" class="form_button" id="My_Button" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count.py')"/>-->
 
 function updatepage(str){
-    document.getElementById("glison").innerHTML = str;
+    new_str = str.split(" ");
+    document.getElementById("glison").innerHTML = new_str[0];
+    document.getElementById("tnm").innerHTML = new_str[1];
+    document.getElementById("degree").innerHTML = new_str[2];
 }
 </script>
 </head>
@@ -59,11 +63,11 @@ function updatepage(str){
             <a href="site.html">О проекте</a>
         </li>
         <li>
-            <a href="count.html" class="current">Вычисления</a>
+            <a href="count_try_ajax.html" class="current">Вычисления</a>
         </li>
     </ul>
     <div class="right">
-        <form action="JavaScript:xmlhttpPost('/cgi-bin/count.py')" class="form" id="form">
+        <form action="" class="form" id="form">
             <h2>Внесите данные
             </h2>
             <div class="form_grup "><label class="form_label "> Возраст </label>
@@ -75,14 +79,17 @@ function updatepage(str){
             <div class="form_grup "><label class="form_label"> Значение ПСА </label>
                 <input name="psa" id="psa"  type="number " class="form_input" required />
             </div>
-            <input type="submit" value="Submit" class="form_button" id="My_Button" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count.py')"/>
-            <button type="button" value="Submit" class="form_button" id="MyButton" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count.py')">Вычислить</button>
+            <button type="button" value="Submit" class="form_button" id="MyButton" onsubmit="return false" onclick="JavaScript:xmlhttpPost('/cgi-bin/count_cgi.py')">Вычислить</button>
         </form>
 
         <div class="map">
             <h2 class="res">Результаты</h2>
             <h3>Показатель Глисона: </h3>
             <h4 id="glison"></h4>
+            <h3>TNM: </h3>
+            <h4 id="tnm"></h4>
+            <h3>Стадия: </h3>
+            <h4 id="degree"></h4>
         </div>
     </div>
     <footer class=" py-3 "></footer>
