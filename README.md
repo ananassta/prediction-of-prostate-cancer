@@ -10,4 +10,4 @@ Program "nn_launch.py" is needed to run.
 Program "training_db.py" contains test sample.  
 
 Latest edits and researches:
-https://colab.research.google.com/drive/1tL068bGdGwLrtLR1LeQ18SHNZg10oINg?usp=sharing
+https://github.com/ananassta/prediction-of-prostate-cancer-web
